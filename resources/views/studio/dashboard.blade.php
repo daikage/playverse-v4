@@ -20,18 +20,18 @@
         </header>
 
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div class="border border-gray-800 rounded-md p-4">
+            <a href="{{ route('studio.forge', ['studio' => request()->route('studio')]) }}" class="border border-gray-800 rounded-md p-4 block hover:border-gray-700 transition-colors">
                 <h2 class="font-medium mb-2">Project Forge</h2>
                 <p class="text-sm text-gray-400">Drag & drop upload (APK/IPA/EXE/DMG) — Livewire stepper placeholder.</p>
-            </div>
-            <div class="border border-gray-800 rounded-md p-4">
+            </a>
+            <a href="{{ route('studio.comics', ['studio' => request()->route('studio')]) }}" class="border border-gray-800 rounded-md p-4 block hover:border-gray-700 transition-colors">
                 <h2 class="font-medium mb-2">Comic Composer</h2>
                 <p class="text-sm text-gray-400">Upload chapters, generate thumbnails — placeholder.</p>
-            </div>
-            <div class="border border-gray-800 rounded-md p-4">
+            </a>
+            <a href="{{ route('studio.analytics', ['studio' => request()->route('studio')]) }}" class="border border-gray-800 rounded-md p-4 block hover:border-gray-700 transition-colors">
                 <h2 class="font-medium mb-2">Analytics</h2>
                 <p class="text-sm text-gray-400">Downloads vs Views — minimalist charts placeholder.</p>
-            </div>
+            </a>
         </section>
 
         <section>

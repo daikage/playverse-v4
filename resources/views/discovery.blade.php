@@ -21,24 +21,24 @@
             <span class="text-headline-md font-headline-md font-bold tracking-tighter text-on-surface">PLAYVERSE</span>
             <div class="hidden md:flex items-center gap-6">
                 <a class="text-on-surface-variant font-data-label text-data-label hover:text-primary transition-colors duration-150" href="/onboarding/register">Studio</a>
-                <a class="text-on-surface-variant font-data-label text-data-label hover:text-primary transition-colors duration-150" href="/admin/review">Admin</a>
-                <a class="text-primary border-b-2 border-primary pb-1 font-data-label text-data-label opacity-80 scale-95 transition-all" href="/">Discovery</a>
+                <a class="text-on-surface-variant font-data-label text-data-label hover:text-primary transition-colors duration-150" href="{{ route('admin.login') }}">Admin</a>
+                <a class="text-primary border-b-2 border-primary pb-1 font-data-label text-data-label opacity-80 scale-95 transition-all" href="{{ route('discovery') }}">Discovery</a>
             </div>
         </div>
         <div class="flex items-center gap-4">
-            <button class="text-on-surface-variant hover:text-primary transition-colors duration-150 flex items-center justify-center w-8 h-8 rounded-full">
+            <button class="text-on-surface-variant hover:text-primary transition-colors duration-150 flex items-center justify-center w-8 h-8 rounded-full" aria-label="Notifications">
                 <span class="material-symbols-outlined text-[20px]">notifications</span>
             </button>
-            <button class="text-on-surface-variant hover:text-primary transition-colors duration-150 flex items-center justify-center w-8 h-8 rounded-full">
+            <a href="{{ route('settings.show') }}" class="text-on-surface-variant hover:text-primary transition-colors duration-150 flex items-center justify-center w-8 h-8 rounded-full" aria-label="Settings">
                 <span class="material-symbols-outlined text-[20px]">settings</span>
-            </button>
-            <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30 relative">
+            </a>
+            <a href="{{ route('profile.show') }}" class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30 relative" aria-label="Profile">
                 <img
                     class="w-full h-full object-cover"
                     alt="User Profile Avatar"
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhXFp-d1TK5q2E05gxwbd2K8mxt5hF22rQdjzzlIOuPHspsmseFdzXoDHMFjzjXgPtc0FFmKxHloxUnd4tyI8w-3OF-c1g1sK3pF_R9s9Y5qE88oZf8bQ8YCAG642QCcFy4Mgt7zEgD0b4Z78YUqHHKEOdX7C2BWKHQRjtLTlVAkCPEFqDCjejzWXrwAx1OoJ3Qi0rJTsn2Hmj9iS7iwWr6SKdQKUnU55i2adYHrXXOp5eRvFW6TKinTJSCx5tQI6bQlqANTZwOcnv"
                 />
-            </div>
+            </a>
         </div>
     </nav>
 
@@ -101,89 +101,76 @@
         <section id="catalog" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop w-full mt-16">
             <div class="flex items-center justify-between mb-8">
                 <h2 class="font-headline-md text-headline-md text-on-surface">Trending Archives</h2>
-                <button class="text-on-surface-variant font-data-label text-data-label hover:text-tertiary flex items-center gap-1 transition-colors">
+                <a href="{{ route('discovery') }}" class="text-on-surface-variant font-data-label text-data-label hover:text-tertiary flex items-center gap-1 transition-colors">
                     VIEW ALL <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-                </button>
+                </a>
             </div>
 
+            @php
+                use Illuminate\Support\Facades\Storage;
+                // Prefer controller-provided lists; otherwise default to empty.
+                $items = isset($featured) && $featured ? $featured : ($projects ?? collect());
+            @endphp
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-                <!-- Card 1 -->
-                <article class="group relative bg-surface-container-low border border-outline-variant/20 rounded overflow-hidden hover:-translate-y-1 hover:border-tertiary/40 transition-all duration-300 shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
-                    <div class="aspect-video w-full relative overflow-hidden bg-surface-container-highest">
-                        <img
-                            alt="Cyberpunk Game Cover"
-                            class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuByTecouqnbnr25fTXR2hH34VUMIvfUnC7GEJuIVLmY35AZVcua_3pkvohHgvhqJi0gLasrnJv40oCgTKlwhzkXW8n5i8Vb9sWitgZ72dY0WigoAonr3sVzBAmCUxnU4K3hY8P4E22DVeYCcJOzUHg0Ey6rzrWeSkyqh8ceXqKCnlR8cWWnbdec6w_gkxskJlTFpkfQcVVx9H5i_WpbqA5nWtjqicSMOfUrQxPRY2JZ4C_bSwBgAlc1TASJ9FzzbMdSI8TTykQ52kEx"
-                        />
-                        <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
-                        <div class="absolute top-3 left-3 flex gap-2">
-                            <span class="px-2 py-1 bg-surface/80 backdrop-blur-md border border-outline-variant/30 text-tertiary font-data-label text-data-label rounded text-[10px]">RPG</span>
-                            <span class="px-2 py-1 bg-surface/80 backdrop-blur-md border border-outline-variant/30 text-on-surface font-data-label text-data-label rounded text-[10px]">VERIFIED</span>
-                        </div>
-                    </div>
-                    <div class="p-5 flex flex-col gap-3">
-                        <h3 class="font-headline-md text-[18px] text-on-surface leading-tight">Neon Syndicate: Protocol Zero</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Infiltrate the highest echelons of a corrupt megacorporation in this tactical espionage thriller.</p>
-                        <div class="flex items-center justify-between mt-2 pt-4 border-t border-outline-variant/10">
-                            <div class="flex items-center gap-2 text-on-surface-variant">
-                                <span class="material-symbols-outlined text-[16px]">desktop_windows</span>
-                                <span class="material-symbols-outlined text-[16px]">desktop_mac</span>
-                            </div>
-                            <span class="font-data-value text-data-value text-on-surface font-medium">$49.99</span>
-                        </div>
-                    </div>
-                </article>
+                @forelse(($items instanceof \Illuminate\Support\Collection ? $items : collect($items))->take(9) as $p)
+                    @php
+                        // Resolve cover image: comic thumbnail or first game screenshot; fallback placeholder
+                        $cover = null;
+                        $disk = config('filesystems.default', 'public');
+                        if ($p->type === 'comic' && !empty($p->thumbnail_path)) {
+                            $cover = $disk === 'public' ? Storage::disk('public')->url($p->thumbnail_path) : Storage::disk($disk)->temporaryUrl($p->thumbnail_path, now()->addMinutes(15));
+                        } elseif (is_array($p->screenshots) && count($p->screenshots)) {
+                            $first = $p->screenshots[0];
+                            $cover = $disk === 'public' ? Storage::disk('public')->url($first) : Storage::disk($disk)->temporaryUrl($first, now()->addMinutes(15));
+                        }
+                        $cover = $cover ?: 'https://lh3.googleusercontent.com/aida-public/AB6AXuByTecouqnbnr25fTXR2hH34VUMIvfUnC7GEJuIVLmY35AZVcua_3pkvohHgvhqJi0gLasrnJv40oCgTKlwhzkXW8n5i8Vb9sWitgZ72dY0WigoAonr3sVzBAmCUxnU4K3hY8P4E22DVeYCcJOzUHg0Ey6rzrWeSkyqh8ceXqKCnlR8cWWnbdec6w_gkxskJlTFpkfQcVVx9H5i_WpbqA5nWtjqicSMOfUrQxPRY2JZ4C_bSwBgAlc1TASJ9FzzbMdSI8TTykQ52kEx';
+                        $isVerified = (bool)($p->published);
+                        $platforms = (array)($p->platforms ?? []);
+                    @endphp
 
-                <!-- Card 2 -->
-                <article class="group relative bg-surface-container-low border border-outline-variant/20 rounded overflow-hidden hover:-translate-y-1 hover:border-tertiary/40 transition-all duration-300 shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
-                    <div class="aspect-video w-full relative overflow-hidden bg-surface-container-highest">
-                        <img
-                            alt="Space Exploration Game"
-                            class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPWIo17otq0dupSPgB7B5mTWwLrQ2kBRAvqwiffmwYcc-nfoFlnnT8N9j2IkLcZh8hJosAMaJ3UYgw8mNn0Fst7Q9O14VFPiOmUZ6GYoRdendwmGkXvKx3tj0Qa9cdxO3DKJsB6jXJgNUWNpFP9EbbiYCPoD1YXBwP7gJTFxE31jRockQH3ZLs63-4yL9dXIpS46R8Iy5hsbv-TXxi0OD-doD-xLok9xID13BQFAUe43ZV7Jh_P7SEmZRWlF3aoXiRssUYh4Pra9tL"
-                        />
-                        <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
-                        <div class="absolute top-3 left-3 flex gap-2">
-                            <span class="px-2 py-1 bg-surface/80 backdrop-blur-md border border-outline-variant/30 text-tertiary font-data-label text-data-label rounded text-[10px]">SIM</span>
-                        </div>
-                    </div>
-                    <div class="p-5 flex flex-col gap-3">
-                        <h3 class="font-headline-md text-[18px] text-on-surface leading-tight">Void Navigator</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Chart unknown territories and manage complex ship systems in a mathematically precise physics engine.</p>
-                        <div class="flex items-center justify-between mt-2 pt-4 border-t border-outline-variant/10">
-                            <div class="flex items-center gap-2 text-on-surface-variant">
-                                <span class="material-symbols-outlined text-[16px]">desktop_windows</span>
+                    <article class="group relative bg-surface-container-low border border-outline-variant/20 rounded overflow-hidden hover:-translate-y-1 hover:border-tertiary/40 transition-all duration-300 shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+                        <div class="aspect-video w-full relative overflow-hidden bg-surface-container-highest">
+                            <img
+                                alt="{{ $p->title }}"
+                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                                src="{{ $cover }}"
+                            />
+                            <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+                            <div class="absolute top-3 left-3 flex gap-2">
+                                <span class="px-2 py-1 bg-surface/80 backdrop-blur-md border border-outline-variant/30 text-tertiary font-data-label text-data-label rounded text-[10px]">{{ strtoupper($p->type) }}</span>
+                                @if($isVerified)
+                                    <span class="px-2 py-1 bg-surface/80 backdrop-blur-md border border-outline-variant/30 text-on-surface font-data-label text-data-label rounded text-[10px]">VERIFIED</span>
+                                @endif
                             </div>
-                            <span class="font-data-value text-data-value text-on-surface font-medium">Included w/ Pass</span>
                         </div>
-                    </div>
-                </article>
-
-                <!-- Card 3 -->
-                <article class="group relative bg-surface-container-low border border-outline-variant/20 rounded overflow-hidden hover:-translate-y-1 hover:border-tertiary/40 transition-all duration-300 shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
-                    <div class="aspect-video w-full relative overflow-hidden bg-surface-container-highest">
-                        <img
-                            alt="Retro Arcade Collection"
-                            class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwHLsVoSGcto8eUPkQjxUNRo4Qf3tsr1ChcjA170ubG2rhSlhXpCFe9zfMdA6Hx4sxxutdjp3dMHpiAIvGOvPQ4qjjiSlGZsp249rTMkyJK6wJcG0_9LhIhaBancODEyjWKTSiuZIHSbXOvCRkp1pOKcVwWR0meqsf7mpnsbhs5-Txx4ZCF0AvCrqruPc7BZ7D6Hcnxnpuo3cvJhlbvdPzlaphAFgRHm_zh5z6_0js-3ZBbDs-Eo-SaFg75Y09Bzg0CNLoZINglqpx"
-                        />
-                        <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
-                        <div class="absolute top-3 left-3 flex gap-2">
-                            <span class="px-2 py-1 bg-surface/80 backdrop-blur-md border border-outline-variant/30 text-tertiary font-data-label text-data-label rounded text-[10px]">ARCADE</span>
-                        </div>
-                    </div>
-                    <div class="p-5 flex flex-col gap-3">
-                        <h3 class="font-headline-md text-[18px] text-on-surface leading-tight">Archive: 1984 Collection</h3>
-                        <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">A meticulously restored collection of early vector-graphics games, optimized for modern high-refresh displays.</p>
-                        <div class="flex items-center justify-between mt-2 pt-4 border-t border-outline-variant/10">
-                            <div class="flex items-center gap-2 text-on-surface-variant">
-                                <span class="material-symbols-outlined text-[16px]">desktop_windows</span>
-                                <span class="material-symbols-outlined text-[16px]">phone_iphone</span>
+                        <div class="p-5 flex flex-col gap-3">
+                            <h3 class="font-headline-md text-[18px] text-on-surface leading-tight">{{ $p->title }}</h3>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                                {{ $p->author?->name ? 'By '.$p->author->name : '—' }}
+                            </p>
+                            <div class="flex items-center justify-between mt-2 pt-4 border-t border-outline-variant/10">
+                                <div class="flex items-center gap-2 text-on-surface-variant">
+                                    @if(in_array('windows', $platforms, true))
+                                        <span class="material-symbols-outlined text-[16px]">desktop_windows</span>
+                                    @endif
+                                    @if(in_array('mac', $platforms, true))
+                                        <span class="material-symbols-outlined text-[16px]">desktop_mac</span>
+                                    @endif
+                                    @if(in_array('android', $platforms, true) || in_array('ios', $platforms, true))
+                                        <span class="material-symbols-outlined text-[16px]">phone_iphone</span>
+                                    @endif
+                                </div>
+                                <span class="font-data-value text-data-value text-on-surface font-medium">
+                                    {{ $p->type === 'comic' ? 'Included' : 'Included w/ Pass' }}
+                                </span>
                             </div>
-                            <span class="font-data-value text-data-value text-on-surface font-medium">$14.99</span>
                         </div>
-                    </div>
-                </article>
+                    </article>
+                @empty
+                    <!-- Fallback (no projects): retain design by showing nothing or a subtle note -->
+                    <div class="col-span-full text-on-surface-variant text-sm">No items available yet. Check back soon.</div>
+                @endforelse
             </div>
         </section>
     </main>

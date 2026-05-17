@@ -23,70 +23,8 @@
         $impersonated = $tm?->tenant();
         $studioLink = $impersonated ? route('studio.dashboard', ['studio' => $impersonated->slug]) : null;
     @endphp
-    <!-- SideNavBar (Desktop) -->
-    <nav class="hidden md:flex flex-col bg-surface-container/40 backdrop-blur-2xl border-r border-outline-variant/10 fixed left-0 top-0 h-full w-64 pt-20 pb-8 z-50">
-        <!-- Header Anchor -->
-        <div class="px-6 mb-12">
-            <h1 class="text-headline-md font-headline-md font-black text-on-surface tracking-tighter">PLAYVERSE OS</h1>
-            <p class="text-data-label font-data-label text-on-surface-variant mt-1 text-[10px]">Tactical Command</p>
-        </div>
 
-        <!-- Navigation Links -->
-        <div class="flex-1 flex flex-col gap-1 w-full">
-            <a href="{{ route('admin.review.index') }}"
-               class="flex items-center gap-4 text-on-surface-variant py-3 px-6 hover:bg-surface-variant/30 hover:text-on-surface transition-all duration-150">
-                <span class="material-symbols-outlined text-[20px]">dashboard</span>
-                <span class="text-data-label font-data-label uppercase tracking-widest">Dashboard</span>
-            </a>
-
-            <a href="{{ $studioLink ?? '#' }}"
-               @if(!$studioLink) aria-disabled="true" title="Impersonate a studio to access Project Forge" @endif
-               class="flex items-center gap-4 {{ $studioLink ? 'text-on-surface-variant hover:bg-surface-variant/30 hover:text-on-surface' : 'text-on-surface-variant/50 cursor-not-allowed' }} py-3 px-6 transition-all duration-150">
-                <span class="material-symbols-outlined text-[20px]">token</span>
-                <span class="text-data-label font-data-label uppercase tracking-widest">Project Forge</span>
-            </a>
-
-            <a href="{{ $studioLink ?? '#' }}"
-               @if(!$studioLink) aria-disabled="true" title="Impersonate a studio to access Comic Composer" @endif
-               class="flex items-center gap-4 {{ $studioLink ? 'text-on-surface-variant hover:bg-surface-variant/30 hover:text-on-surface' : 'text-on-surface-variant/50 cursor-not-allowed' }} py-3 px-6 transition-all duration-150">
-                <span class="material-symbols-outlined text-[20px]">menu_book</span>
-                <span class="text-data-label font-data-label uppercase tracking-widest">Comic Composer</span>
-            </a>
-
-            <a href="{{ route('admin.review.index') }}"
-               class="flex items-center gap-4 text-on-surface-variant py-3 px-6 hover:bg-surface-variant/30 hover:text-on-surface transition-all duration-150">
-                <span class="material-symbols-outlined text-[20px]">security</span>
-                <span class="text-data-label font-data-label uppercase tracking-widest">Command Desk</span>
-            </a>
-
-            <!-- Active Tab -->
-            <a href="{{ route('admin.review.index') }}"
-               class="flex items-center gap-4 bg-tertiary/10 text-tertiary border-r-2 border-tertiary py-3 px-6 scale-[0.98] transition-transform">
-                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">fact_check</span>
-                <span class="text-data-label font-data-label uppercase tracking-widest">Verifications</span>
-            </a>
-
-            <a href="{{ route('admin.review.index') }}"
-               class="flex items-center gap-4 text-on-surface-variant py-3 px-6 hover:bg-surface-variant/30 hover:text-on-surface transition-all duration-150">
-                <span class="material-symbols-outlined text-[20px]">payments</span>
-                <span class="text-data-label font-data-label uppercase tracking-widest">Economics</span>
-            </a>
-        </div>
-
-        <!-- Footer Actions -->
-        <div class="mt-auto flex flex-col gap-1 w-full border-t border-outline-variant/10 pt-4">
-            <a href="mailto:support@playverse.local"
-               class="flex items-center gap-4 text-on-surface-variant py-3 px-6 hover:bg-surface-variant/30 hover:text-on-surface transition-all duration-150">
-                <span class="material-symbols-outlined text-[20px]">help</span>
-                <span class="text-data-label font-data-label uppercase tracking-widest">Support</span>
-            </a>
-            <a href="{{ route('admin.impersonate.stop') }}"
-               class="flex items-center gap-4 text-on-surface-variant py-3 px-6 hover:bg-surface-variant/30 hover:text-on-surface transition-all duration-150">
-                <span class="material-symbols-outlined text-[20px]">logout</span>
-                <span class="text-data-label font-data-label uppercase tracking-widest">Sign Out</span>
-            </a>
-        </div>
-    </nav>
+    @include('admin.partials.sidebar')
 
     <!-- Main Canvas -->
     <main class="flex-1 flex flex-col md:ml-64 h-full relative overflow-hidden bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-surface-container/20 via-background to-background">

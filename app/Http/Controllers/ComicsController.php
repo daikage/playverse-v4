@@ -13,14 +13,12 @@ class ComicsController
 
         // Only show if published or if tenant/admin (basic gate for demo)
         if (! $project->published) {
-            // Allow if impersonating this tenant
             $tenant = app(\App\Support\Tenancy\TenantManager::class)->tenant();
             abort_unless($tenant && $tenant->id === $project->author_id, 403);
         }
 
         $pages = $project->pages ?? [];
 
-        // Convert to temporary URLs for the viewer
         $disk = config('filesystems.default', 'public');
         $urls = array_map(function ($path) use ($disk) {
             if ($disk === 'public') {
@@ -33,5 +31,11 @@ class ComicsController
             'project' => $project,
             'pages' => $urls,
         ]);
+    }
+
+    // NEW: Prevent accidental calls to index() from misrouted definitions
+    public function index()
+    {
+        abort(404);
     }
 }

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +16,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Seed or update a default test user (idempotent)
+        User::updateOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'password' => Hash::make(env('TEST_USER_PASSWORD', 'password')),
+                'role' => 'author',
+                'email_verified_at' => now(),
+            ]
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // +++ Admin account (idempotent) +++
+        // Credentials:
+        //   Email: admin@playverse.test
+        //   Password: secret-admin
+        User::updateOrCreate(
+            ['email' => 'admin@playverse.test'],
+            [
+                'name' => 'Playverse Admin',
+                'password' => Hash::make('secret-admin'),
+                'role' => 'admin',
+                'email_verified_at' => now(),
+            ]
+        );
     }
 }

@@ -19,12 +19,21 @@ class Project extends Model
         'asset_path',
         'pages',
         'published',
+        // +++ NEW +++
+        'screenshots',
+        'videos',
+        // +++ END +++
+        'thumbnail_path',
     ];
 
     protected $casts = [
         'platforms' => 'array',
         'pages' => 'array',
         'published' => 'boolean',
+        // +++ NEW +++
+        'screenshots' => 'array',
+        'videos' => 'array',
+        // +++ END +++
     ];
 
     public function author()
